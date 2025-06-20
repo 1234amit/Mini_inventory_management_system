@@ -1,0 +1,27 @@
+﻿@model MiniInventory_Management.Model.Product
+
+<div class="modal-header">
+    <h5 class="modal-title">Product Details</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+    <dl class="row">
+        <dt class="col-sm-4">ID</dt>
+        <dd class="col-sm-8">@Model.Id</dd>
+
+        <dt class="col-sm-4">Name</dt>
+        <dd class="col-sm-8">@Model.Name</dd>
+
+        <dt class="col-sm-4">Category</dt>
+        <dd class="col-sm-8">@Model.Category</dd>
+
+        <dt class="col-sm-4">Price</dt>
+        <dd class="col-sm-8">@Model.Price.ToString("C")</dd>
+
+        <dt class="col-sm-4">Quantity</dt>
+        <dd class="col-sm-8">@Model.Quantity</dd>
+    </dl>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+</div>

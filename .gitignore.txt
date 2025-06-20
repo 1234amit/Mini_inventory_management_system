@@ -1,0 +1,29 @@
+# Ignore Visual Studio temporary files, build results, and user-generated files
+.vs/
+*.user
+*.suo
+*.cache
+*.log
+*.pdb
+*.dbmdl
+*.bak
+
+# Ignore build outputs
+bin/
+obj/
+
+# Ignore published files
+publish/
+*.publish.xml
+
+# Ignore Rider files
+.idea/
+
+# Ignore npm and node modules if using frontend
+node_modules/
+
+# Ignore EF migration snapshots
+Migrations/
+
+# Ignore secrets if any
+secrets.json

@@ -1,0 +1,16 @@
+﻿@model MiniInventory_Management.Model.Product
+
+<div class="modal-header">
+    <h5 class="modal-title">Confirm Delete</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<form id="deleteProductForm" asp-controller="Products" asp-action="Delete" asp-route-id="@Model.Id" method="post">
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        <p>Are you sure you want to delete the product: <strong>@Model.Name</strong>?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </div>
+</form>

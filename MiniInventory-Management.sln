@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniInventory-Management", "MiniInventory-Management\MiniInventory-Management.csproj", "{03BF3D83-A8D9-420F-950F-ABF4E411CB4A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{03BF3D83-A8D9-420F-950F-ABF4E411CB4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03BF3D83-A8D9-420F-950F-ABF4E411CB4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03BF3D83-A8D9-420F-950F-ABF4E411CB4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03BF3D83-A8D9-420F-950F-ABF4E411CB4A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {36F00A59-AD16-40D8-9CDF-5F4A84F4F83F}
+	EndGlobalSection
+EndGlobal
