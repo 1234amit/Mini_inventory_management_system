@@ -1,5 +1,6 @@
 D:\software\ASP.NET\MiniInventory-Management\MiniInventory-Management\bin\Debug\net8.0\appsettings.Development.json
 D:\software\ASP.NET\MiniInventory-Management\MiniInventory-Management\bin\Debug\net8.0\appsettings.json
+D:\software\ASP.NET\MiniInventory-Management\MiniInventory-Management\bin\Debug\net8.0\libman.json
 D:\software\ASP.NET\MiniInventory-Management\MiniInventory-Management\bin\Debug\net8.0\MiniInventory-Management.staticwebassets.runtime.json
 D:\software\ASP.NET\MiniInventory-Management\MiniInventory-Management\bin\Debug\net8.0\MiniInventory-Management.staticwebassets.endpoints.json
 D:\software\ASP.NET\MiniInventory-Management\MiniInventory-Management\bin\Debug\net8.0\MiniInventory-Management.exe
@@ -151,6 +152,7 @@ D:\software\ASP.NET\MiniInventory-Management\MiniInventory-Management\obj\Debug\
 D:\software\ASP.NET\MiniInventory-Management\MiniInventory-Management\obj\Debug\net8.0\MiniInventory-Management.MvcApplicationPartsAssemblyInfo.cache
 D:\software\ASP.NET\MiniInventory-Management\MiniInventory-Management\obj\Debug\net8.0\MiniInventory-Management.RazorAssemblyInfo.cache
 D:\software\ASP.NET\MiniInventory-Management\MiniInventory-Management\obj\Debug\net8.0\MiniInventory-Management.RazorAssemblyInfo.cs
+D:\software\ASP.NET\MiniInventory-Management\MiniInventory-Management\obj\Debug\net8.0\MiniInventory-Management.sourcelink.json
 D:\software\ASP.NET\MiniInventory-Management\MiniInventory-Management\obj\Debug\net8.0\scopedcss\Pages\Shared\_Layout.cshtml.rz.scp.css
 D:\software\ASP.NET\MiniInventory-Management\MiniInventory-Management\obj\Debug\net8.0\scopedcss\bundle\MiniInventory-Management.styles.css
 D:\software\ASP.NET\MiniInventory-Management\MiniInventory-Management\obj\Debug\net8.0\scopedcss\projectbundle\MiniInventory-Management.bundle.scp.css
@@ -163,11 +165,10 @@ D:\software\ASP.NET\MiniInventory-Management\MiniInventory-Management\obj\Debug\
 D:\software\ASP.NET\MiniInventory-Management\MiniInventory-Management\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.MiniInventory-Management.props
 D:\software\ASP.NET\MiniInventory-Management\MiniInventory-Management\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.MiniInventory-Management.props
 D:\software\ASP.NET\MiniInventory-Management\MiniInventory-Management\obj\Debug\net8.0\staticwebassets.pack.json
-D:\software\ASP.NET\MiniInventory-Management\MiniInventory-Management\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 D:\software\ASP.NET\MiniInventory-Management\MiniInventory-Management\obj\Debug\net8.0\MiniInve.AE5D36D1.Up2Date
 D:\software\ASP.NET\MiniInventory-Management\MiniInventory-Management\obj\Debug\net8.0\MiniInventory-Management.dll
 D:\software\ASP.NET\MiniInventory-Management\MiniInventory-Management\obj\Debug\net8.0\refint\MiniInventory-Management.dll
 D:\software\ASP.NET\MiniInventory-Management\MiniInventory-Management\obj\Debug\net8.0\MiniInventory-Management.pdb
 D:\software\ASP.NET\MiniInventory-Management\MiniInventory-Management\obj\Debug\net8.0\MiniInventory-Management.genruntimeconfig.cache
 D:\software\ASP.NET\MiniInventory-Management\MiniInventory-Management\obj\Debug\net8.0\ref\MiniInventory-Management.dll
-D:\software\ASP.NET\MiniInventory-Management\MiniInventory-Management\bin\Debug\net8.0\libman.json
+D:\software\ASP.NET\MiniInventory-Management\MiniInventory-Management\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

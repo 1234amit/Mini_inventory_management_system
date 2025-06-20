@@ -41,14 +41,12 @@ namespace MiniInventory_Management.Controllers
             return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
         }
 
-        // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null) return NotFound();
             var product = await _context.Products.FirstOrDefaultAsync(m => m.Id == id);
             if (product == null) return NotFound();
-            // FIX: Using full path to the partial view
-            return PartialView("~/Views/Shared/_ProductDetailsPartial.cshtml", product);
+            return PartialView("/Views/Shared/_ProductDetailsPartial.cshtml", product);
         }
 
         // GET: Products/Edit/5
@@ -57,45 +55,63 @@ namespace MiniInventory_Management.Controllers
             if (id == null) return NotFound();
             var product = await _context.Products.FindAsync(id);
             if (product == null) return NotFound();
-            // FIX: Using full path to the partial view
-            return PartialView("~/Views/Shared/_EditProductPartial.cshtml", product);
+            return PartialView("/Views/Shared/_EditProductPartial.cshtml", product);
         }
 
+        // POST: Products/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Category,Price,Quantity")] Product product)
         {
-            if (id != product.Id) return NotFound();
+            if (id != product.Id)
+            {
+                return Json(new { success = false, errors = new[] { "Product ID mismatch." } });
+            }
+
             if (ModelState.IsValid)
             {
-                _context.Update(product);
-                await _context.SaveChangesAsync();
-                return Json(new { success = true });
+                try
+                {
+                    _context.Update(product);
+                    await _context.SaveChangesAsync();
+                    return Json(new { success = true });
+                }
+                catch (Exception ex)
+                {
+                    return Json(new { success = false, errors = new[] { "An unexpected error occurred: " + ex.Message } });
+                }
             }
-            return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
+
+            var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToArray();
+            return Json(new { success = false, errors = errors });
         }
 
-        // GET: Products/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
             var product = await _context.Products.FirstOrDefaultAsync(m => m.Id == id);
             if (product == null) return NotFound();
-            // FIX: Using full path to the partial view
-            return PartialView("~/Views/Shared/_DeleteProductPartial.cshtml", product);
+            return PartialView("/Views/Shared/_DeleteProductPartial.cshtml", product);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var product = await _context.Products.FindAsync(id);
-            if (product != null)
+            try
             {
-                _context.Products.Remove(product);
-                await _context.SaveChangesAsync();
+                var product = await _context.Products.FindAsync(id);
+                if (product != null)
+                {
+                    _context.Products.Remove(product);
+                    await _context.SaveChangesAsync();
+                }
+                return Json(new { success = true });
             }
-            return Json(new { success = true });
+            catch (Exception ex)
+            {
+                return Json(new { success = false, errors = new[] { "An error occurred while deleting: " + ex.Message } });
+            }
         }
 
         private bool ProductExists(int id) => _context.Products.Any(e => e.Id == id);

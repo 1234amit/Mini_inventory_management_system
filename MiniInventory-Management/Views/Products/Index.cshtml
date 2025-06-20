@@ -9,7 +9,7 @@
 <!-- ================================================================= -->
 <!--                       MODALS                                      -->
 <!-- ================================================================= -->
-<!-- Add Product Modal (Existing) -->
+<!-- Add Product Modal -->
 <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -18,7 +18,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="addProductForm" method="post">
+                <form id="addProductForm" method="post" autocomplete="off">
                     @Html.AntiForgeryToken()
                     <div class="mb-3">
                         <label for="productName" class="form-label">Product Name</label>
@@ -27,6 +27,7 @@
                     <div class="mb-3">
                         <label for="productCategory" class="form-label">Category</label>
                         <select id="productCategory" name="Category" class="form-select" required>
+                            <option value="">-- Select Category --</option>
                             @if (categories != null)
                             {
                                 foreach (var cat in categories)
@@ -44,18 +45,18 @@
                         <label for="productQuantity" class="form-label">Quantity</label>
                         <input type="number" class="form-control" id="productQuantity" name="Quantity" required>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" id="saveProductBtn" class="btn btn-primary">Save Product</button>
-                    </div>
                 </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" id="saveProductBtn" class="btn btn-primary">Save Product</button>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Universal Modal for View, Edit, and Delete actions -->
-<div class="modal fade" id="actionModal" tabindex="-1" aria-labelledby="actionModalLabel" aria-hidden="true">
+<div class="modal fade" id="actionModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content" id="actionModalContent">
             <!-- Content for this modal is loaded dynamically via JavaScript -->
@@ -77,16 +78,6 @@
             <i class="bi bi-plus-lg"></i> + Add Product
         </button>
     </div>
-
-    <!-- This div is used for displaying success/error messages after a page reload -->
-    @if (TempData["SuccessMessage"] != null)
-    {
-        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
-    }
-    @if (TempData["ErrorMessage"] != null)
-    {
-        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
-    }
 
     <!-- Filter Form -->
     <div class="card p-3 mb-4">
@@ -143,7 +134,6 @@
                     <td class="text-end">@item.Quantity</td>
                     <td><span class="badge @statusClass">@statusText</span></td>
                     <td class="text-center">
-                        <!-- IMPORTANT: Links are changed to buttons with data-url attributes -->
                         <button type="button" class="btn btn-sm btn-info me-1 action-button" data-url="@Url.Action("Details", "Products", new { id = item.Id })">View</button>
                         <button type="button" class="btn btn-sm btn-warning me-1 text-dark action-button" data-url="@Url.Action("Edit", "Products", new { id = item.Id })">Edit</button>
                         <button type="button" class="btn btn-sm btn-danger action-button" data-url="@Url.Action("Delete", "Products", new { id = item.Id })">Delete</button>
@@ -160,45 +150,48 @@
 @section Scripts {
     <script>
         $(function () {
-            // --- Add Product ---
-            $('#saveProductBtn').on('click', function () {
-                var form = $('#addProductForm');
-                if (form.valid()) {
-                    $.ajax({
-                        type: "POST",
-                        url: '@Url.Action("Create", "Products")',
-                        data: form.serialize(),
-                        success: function (response) {
-                            if (response.success) {
-                                window.location.href = '@Url.Action("Index", "Products")';
-                            } else {
-                                alert('Error: ' + (response.errors ? response.errors.join("\\n") : "An unknown error occurred."));
-                            }
-                        },
-                        error: function () {
-                            alert('An unexpected error occurred while communicating with the server.');
-                        }
-                    });
-                }
-            });
-
-            // --- View, Edit, & Delete Logic ---
+            var addProductModal = new bootstrap.Modal(document.getElementById('addProductModal'));
             var actionModal = new bootstrap.Modal(document.getElementById('actionModal'));
             var actionModalContent = $('#actionModalContent');
 
-            // 1. Handle clicks on any action button
-            $('.action-button').on('click', function () {
-                var url = $(this).data('url');
-                // Load content from the server into the modal
-                $.get(url).done(function (data) {
-                    actionModalContent.html(data);
-                    actionModal.show();
+            // --- Add Product ---
+            $('#saveProductBtn').on('click', function () {
+                var form = $('#addProductForm');
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Create", "Products")',
+                    data: form.serialize(),
+                    success: function (response) {
+                        if (response.success) {
+                            addProductModal.hide();
+                            window.location.reload(); // Reload to see the new product
+                        } else {
+                            alert('Error adding product: ' + (response.errors ? response.errors.join("\\n") : "An unknown error occurred."));
+                        }
+                    },
+                    error: function () {
+                        alert('An unexpected server error occurred while adding the product.');
+                    }
                 });
             });
 
-            // 2. Handle form submission from within the universal modal
+            // --- View, Edit, & Delete Logic ---
+
+            // 1. Handle clicks on any action button in the table
+            $('.action-button').on('click', function () {
+                var url = $(this).data('url');
+                // Fetch the content for the modal from the server
+                $.get(url).done(function (data) {
+                    actionModalContent.html(data);
+                    actionModal.show();
+                }).fail(function() {
+                    alert("Error: Could not load content from the server. The server may be down or the URL is incorrect.");
+                });
+            });
+
+            // 2. Handle form submission from inside the universal modal (for Edit and Delete)
             actionModalContent.on('submit', 'form', function (e) {
-                e.preventDefault(); // Prevent normal form submission
+                e.preventDefault(); // Stop the default browser form submission
                 var form = $(this);
 
                 $.ajax({
@@ -208,9 +201,9 @@
                     success: function (response) {
                         if (response.success) {
                             actionModal.hide();
-                            window.location.href = '@Url.Action("Index", "Products")'; // Reload page to see changes
+                            window.location.reload(); // Reload the page to see the changes
                         } else {
-                            alert('Error: ' + (response.errors ? response.errors.join("\\n") : "An unknown error occurred."));
+                            alert('Error processing request: ' + (response.errors ? response.errors.join("\\n") : "An unknown error occurred."));
                         }
                     },
                     error: function () {
